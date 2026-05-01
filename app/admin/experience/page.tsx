@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
+import Link from "next/link";
 import DeleteButton from "@/components/admin/DeleteButton";
-import ExperienceFormSimple from "@/components/admin/ExperienceFormSimple";
 
 export const dynamic = "force-dynamic";
 
@@ -23,38 +23,55 @@ export default async function ExperienceAdmin() {
             {experience.length} entries
           </p>
         </div>
+        <Link
+          href="/admin/experience/new"
+          className="px-4 py-2 rounded-lg font-mono text-sm font-semibold"
+          style={{ background: "var(--accent-green)", color: "#000" }}
+        >
+          + Add Experience
+        </Link>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div>
-          <h2 className="font-mono text-sm mb-4" style={{ color: "var(--accent-green)" }}>
-            Add Experience
-          </h2>
-          <ExperienceFormSimple />
-        </div>
-
-        <div className="space-y-3">
-          {experience.map((exp) => (
-            <div key={exp.id} className="card p-4">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <p className="font-semibold text-sm" style={{ color: "var(--text-primary)" }}>
-                    {exp.role}
-                  </p>
-                  <p className="text-xs" style={{ color: "var(--text-muted)" }}>
-                    {exp.company}
-                  </p>
-                </div>
-                <DeleteButton id={exp.id} endpoint="/api/experience" />
-              </div>
+      <div className="space-y-3">
+        {experience.map((exp) => (
+          <div key={exp.id} className="card p-4 flex items-center gap-4">
+            <div className="flex-1 min-w-0">
+              <h2
+                className="font-semibold text-sm truncate"
+                style={{ color: "var(--text-primary)" }}
+              >
+                {exp.role}
+              </h2>
+              <p
+                className="text-xs mt-0.5 truncate"
+                style={{ color: "var(--text-muted)" }}
+              >
+                {exp.company} • {exp.location}
+              </p>
             </div>
-          ))}
-          {experience.length === 0 && (
-            <p className="font-mono text-sm" style={{ color: "var(--text-muted)" }}>
-              No entries yet.
-            </p>
-          )}
-        </div>
+            <div className="flex items-center gap-2">
+              <Link
+                href={`/admin/experience/${exp.id}`}
+                className="font-mono text-xs px-3 py-1.5 rounded-lg transition-colors"
+                style={{
+                  border: "1px solid var(--border)",
+                  color: "var(--text-secondary)",
+                }}
+              >
+                Edit
+              </Link>
+              <DeleteButton id={exp.id} endpoint="/api/experience" />
+            </div>
+          </div>
+        ))}
+        {experience.length === 0 && (
+          <p
+            className="text-center py-12 font-mono text-sm"
+            style={{ color: "var(--text-muted)" }}
+          >
+            No entries yet. Add one!
+          </p>
+        )}
       </div>
     </div>
   );

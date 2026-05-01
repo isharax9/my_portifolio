@@ -2,6 +2,11 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ImageUpload from "./ImageUpload";
+import dynamic from "next/dynamic";
+import slugify from "slugify";
+
+const MdxEditor = dynamic(() => import("./MdxEditor"), { ssr: false });
 
 interface BlogFormProps {
   initialData?: {
@@ -68,25 +73,61 @@ export default function BlogForm({ initialData = {} }: BlogFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
-      {[
-        { label: "Title *", key: "title" },
-        { label: "Slug", key: "slug" },
-        { label: "Cover Image URL", key: "coverUrl" },
-        { label: "Tags (comma separated)", key: "tags" },
-      ].map(({ label, key }) => (
-        <div key={key}>
-          <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
-            {label}
-          </label>
-          <input
-            type="text"
-            value={form[key as keyof typeof form] as string}
-            onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
-            className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
-            style={inputStyle}
-          />
-        </div>
-      ))}
+      <div>
+        <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
+          Title *
+        </label>
+        <input
+          type="text"
+          value={form.title}
+          onChange={(e) => {
+            const newTitle = e.target.value;
+            setForm((f) => ({ 
+              ...f, 
+              title: newTitle,
+              slug: !isEdit ? slugify(newTitle, { lower: true, strict: true }) : f.slug
+            }));
+          }}
+          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
+          style={inputStyle}
+        />
+      </div>
+
+      <div>
+        <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
+          Slug
+        </label>
+        <input
+          type="text"
+          value={form.slug}
+          onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))}
+          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
+          style={inputStyle}
+        />
+      </div>
+
+      <div>
+        <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
+          Tags (comma separated)
+        </label>
+        <input
+          type="text"
+          value={form.tags}
+          onChange={(e) => setForm((f) => ({ ...f, tags: e.target.value }))}
+          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none"
+          style={inputStyle}
+        />
+      </div>
+
+      <div>
+        <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
+          Cover Image
+        </label>
+        <ImageUpload
+          value={form.coverUrl}
+          onChange={(url) => setForm((f) => ({ ...f, coverUrl: url }))}
+        />
+      </div>
 
       <div>
         <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
@@ -105,12 +146,9 @@ export default function BlogForm({ initialData = {} }: BlogFormProps) {
         <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
           Content (Markdown)
         </label>
-        <textarea
+        <MdxEditor
           value={form.content}
-          onChange={(e) => setForm((f) => ({ ...f, content: e.target.value }))}
-          rows={12}
-          className="w-full px-4 py-2.5 rounded-lg text-sm outline-none resize-y font-mono"
-          style={inputStyle}
+          onChange={(val) => setForm((f) => ({ ...f, content: val }))}
         />
       </div>
 

@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import ImageUpload from "./ImageUpload";
 
 interface ProjectFormProps {
   initialData?: {
     id?: string;
     title?: string;
     description?: string;
-    longDescription?: string;
+    content?: string;
     tags?: string[];
-    imageUrl?: string;
+    coverUrl?: string;
     githubUrl?: string;
     liveUrl?: string;
     featured?: boolean;
@@ -26,9 +27,9 @@ export default function ProjectForm({ initialData = {} }: ProjectFormProps) {
   const [form, setForm] = useState({
     title: initialData.title ?? "",
     description: initialData.description ?? "",
-    longDescription: initialData.longDescription ?? "",
+    content: initialData.content ?? "",
     tags: initialData.tags?.join(", ") ?? "",
-    imageUrl: initialData.imageUrl ?? "",
+    coverUrl: initialData.coverUrl ?? "",
     githubUrl: initialData.githubUrl ?? "",
     liveUrl: initialData.liveUrl ?? "",
     featured: initialData.featured ?? false,
@@ -125,9 +126,17 @@ export default function ProjectForm({ initialData = {} }: ProjectFormProps) {
     <form onSubmit={handleSubmit} className="max-w-2xl space-y-5">
       {field("Title *", "title")}
       {field("Short Description *", "description", "textarea")}
-      {field("Long Description", "longDescription", "textarea")}
+      {field("Long Description", "content", "textarea")}
       {field("Tags (comma separated)", "tags")}
-      {field("Image URL", "imageUrl")}
+      <div>
+        <label className="block font-mono text-xs mb-1.5" style={{ color: "var(--text-muted)" }}>
+          Cover Image
+        </label>
+        <ImageUpload
+          value={form.coverUrl}
+          onChange={(url) => setForm((f) => ({ ...f, coverUrl: url }))}
+        />
+      </div>
       {field("GitHub URL", "githubUrl")}
       {field("Live URL", "liveUrl")}
       {field("Order", "order", "number")}
