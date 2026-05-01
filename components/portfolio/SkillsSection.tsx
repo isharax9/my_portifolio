@@ -71,7 +71,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
         </motion.div>
 
         {/* Skills grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
           {filtered.map((skill, i) => (
             <motion.div
               key={skill.id}
@@ -79,7 +79,11 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.03 }}
-              className="card p-4 flex flex-col items-center gap-3 group cursor-default"
+              className="card p-4 flex flex-col items-center gap-3 group cursor-default transition-all duration-300"
+              style={skill.featured ? {
+                borderColor: "var(--accent-green)",
+                boxShadow: "0 0 20px rgba(29, 158, 117, 0.15)",
+              } : {}}
             >
               <div className="w-10 h-10 relative flex items-center justify-center">
                 <Image

@@ -35,9 +35,24 @@ export default function HeroSection() {
 
   return (
     <section
-      className="min-h-screen flex items-center justify-center px-6 pt-20"
+      className="relative min-h-screen flex flex-col justify-center px-6 py-32"
       id="hero"
     >
+      {/* Background glow */}
+      <div className="absolute top-0 left-0 w-[800px] h-[800px] rounded-full pointer-events-none opacity-20"
+        style={{
+          background: "radial-gradient(circle, var(--accent-green) 0%, transparent 70%)",
+          transform: "translate(-30%, -30%)"
+        }}
+      />
+      
+      {/* Scanlines overlay */}
+      <div className="absolute inset-0 pointer-events-none opacity-[0.02]"
+        style={{
+          backgroundImage: "linear-gradient(transparent 50%, rgba(255, 255, 255, 1) 50%)",
+          backgroundSize: "100% 4px"
+        }}
+      />
       <div className="max-w-6xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -100,7 +115,9 @@ export default function HeroSection() {
               View Projects
             </a>
             <a
-              href="#contact"
+              href="/Ishara_Lakshitha_CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="px-6 py-3 rounded-lg font-medium text-sm transition-all duration-200"
               style={{
                 border: "1px solid var(--border-accent)",
@@ -114,7 +131,7 @@ export default function HeroSection() {
                 e.currentTarget.style.background = "transparent";
               }}
             >
-              Get In Touch
+              Download CV
             </a>
           </div>
 
@@ -181,10 +198,9 @@ export default function HeroSection() {
             <div className="p-6 font-mono text-sm space-y-3">
               {[
                 { cmd: "whoami", out: "ishara_lakshitha" },
-                { cmd: "cat role.txt", out: "Software Engineer & DevOps" },
-                { cmd: "cat location.txt", out: "UK (Remote) 🇬🇧" },
-                { cmd: "cat stack.txt", out: "AWS · Node.js · Docker · PostgreSQL" },
-                { cmd: "cat status.txt", out: "Available for interesting projects ✅" },
+                { cmd: "cat profile.json", out: '{\n  "role": "Software Engineer & DevOps",\n  "location": "Kurunegala, LK"\n}' },
+                { cmd: "ls skills/", out: "aws  docker  kubernetes  nextjs  node  postgres  react" },
+                { cmd: "echo $STATUS", out: "Available for new opportunities" },
               ].map((line, i) => (
                 <motion.div
                   key={i}
@@ -196,7 +212,7 @@ export default function HeroSection() {
                     <span style={{ color: "var(--accent-green)" }}>❯ </span>
                     {line.cmd}
                   </div>
-                  <div style={{ color: "var(--text-primary)" }} className="mt-0.5 pl-4">
+                  <div style={{ color: "var(--text-primary)", whiteSpace: "pre-wrap" }} className="mt-0.5 pl-4">
                     {line.out}
                   </div>
                 </motion.div>
@@ -208,6 +224,19 @@ export default function HeroSection() {
           </div>
         </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div 
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:block"
+        animate={{ y: [0, 10, 0] }}
+        transition={{ repeat: Infinity, duration: 2 }}
+      >
+        <a href="#about" aria-label="Scroll down">
+          <svg className="w-6 h-6" style={{ color: "var(--text-muted)" }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </a>
+      </motion.div>
     </section>
   );
 }

@@ -22,6 +22,16 @@ export default function CertificationsSection({
 }) {
   return (
     <section id="certifications" className="py-24 px-6">
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(200%); }
+        }
+        .cert-card:hover .shimmer-effect {
+          opacity: 1;
+          animation: shimmer 1.5s infinite linear;
+        }
+      `}</style>
       <div className="max-w-6xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,15 +55,15 @@ export default function CertificationsSection({
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="card p-6 min-w-64 shrink-0 snap-start relative overflow-hidden group"
+              className="cert-card card p-6 min-w-64 shrink-0 snap-start relative overflow-hidden group"
             >
               {/* Shimmer effect */}
               <div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                className="shimmer-effect absolute inset-0 opacity-0 pointer-events-none z-10"
                 style={{
                   background:
-                    "linear-gradient(105deg, transparent 40%, rgba(29,158,117,0.08) 50%, transparent 60%)",
-                  transform: "translateX(-100%)",
+                    "linear-gradient(105deg, transparent 20%, rgba(29,158,117,0.2) 50%, transparent 80%)",
+                  width: "100%",
                 }}
               />
 

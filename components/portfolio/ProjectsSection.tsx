@@ -69,10 +69,10 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
 
         {filtered.length === 0 ? (
           <div
-            className="text-center py-16"
+            className="text-center py-16 font-mono text-sm"
             style={{ color: "var(--text-muted)" }}
           >
-            No projects found. Check back soon!
+            &gt; More projects coming soon...
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

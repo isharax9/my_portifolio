@@ -76,6 +76,7 @@ export default function AboutSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.1 }}
+            className="flex flex-col gap-6"
           >
             <div className="grid grid-cols-2 gap-4">
               {stats.map((stat, i) => (
@@ -104,7 +105,7 @@ export default function AboutSection() {
             </div>
 
             <div
-              className="card mt-4 p-6"
+              className="card p-6"
               style={{ borderColor: "var(--border-accent)" }}
             >
               <p
