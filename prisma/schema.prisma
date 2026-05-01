@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  content     String?
+  coverUrl    String?
+  githubUrl   String?
+  liveUrl     String?
+  tags        String[]
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+enum PostStatus {
+  DRAFT
+  PUBLISHED
+}
+
+model BlogPost {
+  id          String     @id @default(cuid())
+  title       String
+  slug        String     @unique
+  excerpt     String?
+  content     String
+  coverUrl    String?
+  tags        String[]
+  status      PostStatus @default(DRAFT)
+  publishedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Skill {
+  id       String  @id @default(cuid())
+  name     String
+  iconSlug String
+  category String
+  level    Int     @default(3)
+  featured Boolean @default(false)
+  order    Int     @default(0)
+}
+
+model Experience {
+  id          String    @id @default(cuid())
+  company     String
+  role        String
+  startDate   DateTime
+  endDate     DateTime?
+  location    String
+  description String
+  logoUrl     String?
+  order       Int       @default(0)
+}
+
+model Certification {
+  id            String    @id @default(cuid())
+  name          String
+  issuer        String
+  issuedDate    DateTime
+  credentialUrl String?
+  badgeUrl      String?
+  order         Int       @default(0)
+}
