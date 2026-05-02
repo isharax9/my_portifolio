@@ -39,10 +39,12 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
   }, {});
 
   return (
-    <section id="skills" className="relative py-32 px-6 lg:px-8 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/[0.02] to-transparent pointer-events-none" />
-      <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
+    <section id="skills" className="relative py-32 px-6 lg:px-8">
+      {/* Background - wrapped in overflow-hidden so decorative elements don't bleed */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/[0.02] to-transparent" />
+        <div className="absolute inset-0 grid-pattern opacity-30" />
+      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Header */}
@@ -98,7 +100,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
               <div className="space-y-12">
                 {Object.entries(grouped).map(([category, categorySkills]) => (
                   <div key={category}>
-                    <h3 className="text-sm font-mono text-slate-500 mb-4 flex items-center gap-3">
+                    <h3 className="text-sm font-mono text-slate-500 mb-4 flex items-center gap-3 px-1">
                       <span className="w-8 h-px bg-white/[0.08]" />
                       {category}
                       <span className="text-emerald-500/50 text-xs">({categorySkills.length})</span>
