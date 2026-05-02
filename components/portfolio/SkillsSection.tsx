@@ -31,7 +31,6 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
       ? skills
       : skills.filter((s) => s.category === activeCategory);
 
-  // Group skills by category for the "All" view
   const grouped = skills.reduce<Record<string, Skill[]>>((acc, skill) => {
     if (!acc[skill.category]) acc[skill.category] = [];
     acc[skill.category].push(skill);
@@ -39,14 +38,14 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
   }, {});
 
   return (
-    <section id="skills" className="relative py-32 px-6 lg:px-8">
+    <section id="skills" className="relative py-32">
       {/* Background - wrapped in overflow-hidden so decorative elements don't bleed */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/[0.02] to-transparent" />
         <div className="absolute inset-0 grid-pattern opacity-30" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -96,11 +95,10 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
             transition={{ duration: 0.3 }}
           >
             {activeCategory === "All" ? (
-              /* Grouped view */
               <div className="space-y-12">
                 {Object.entries(grouped).map(([category, categorySkills]) => (
                   <div key={category}>
-                    <h3 className="text-sm font-mono text-slate-500 mb-4 flex items-center gap-3 px-1">
+                    <h3 className="text-sm font-mono text-slate-500 mb-4 flex items-center gap-3">
                       <span className="w-8 h-px bg-white/[0.08]" />
                       {category}
                       <span className="text-emerald-500/50 text-xs">({categorySkills.length})</span>
@@ -114,7 +112,6 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
                 ))}
               </div>
             ) : (
-              /* Filtered view */
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
                 {filtered.map((skill, i) => (
                   <SkillCard key={skill.id} skill={skill} index={i} />
@@ -159,7 +156,6 @@ function SkillCard({ skill, index }: { skill: Skill; index: number }) {
       <span className="text-xs text-center font-medium text-slate-300 group-hover:text-white transition-colors">
         {skill.name}
       </span>
-      {/* Level bar */}
       <div className="w-full h-1 rounded-full bg-white/[0.06] overflow-hidden">
         <div
           className="h-full rounded-full transition-all duration-500"

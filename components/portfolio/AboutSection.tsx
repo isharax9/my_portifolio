@@ -19,11 +19,11 @@ const techHighlights = ["AWS", "Docker", "Node.js", "Next.js", "PostgreSQL", "Je
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32 px-6 lg:px-8 overflow-hidden">
+    <section id="about" className="relative py-32">
       {/* Ambient glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-emerald-500/[0.03] blur-[150px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header — centered */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
