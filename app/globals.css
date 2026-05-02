@@ -47,6 +47,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -54,7 +55,6 @@ body {
   color: var(--text-primary);
   font-family: var(--font-inter), system-ui, sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 ::selection {
