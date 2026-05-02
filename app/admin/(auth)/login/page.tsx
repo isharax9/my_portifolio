@@ -35,6 +35,9 @@ export default function AdminLoginPage() {
     >
       <div className="card p-8 w-full max-w-md">
         <div className="mb-8 text-center">
+          <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center font-mono text-lg font-bold text-[#030712]">
+            IL
+          </div>
           <p
             className="font-mono text-sm mb-1"
             style={{ color: "var(--accent-green)" }}
@@ -49,7 +52,7 @@ export default function AdminLoginPage() {
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
             <label
-              className="block font-mono text-xs mb-1.5"
+              className="block font-mono text-xs mb-1.5 uppercase tracking-wider"
               style={{ color: "var(--text-muted)" }}
             >
               Email
@@ -59,9 +62,10 @@ export default function AdminLoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full px-4 py-2.5 rounded-lg text-sm outline-none transition-colors"
+              placeholder="admin@example.com"
+              className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300"
               style={{
-                background: "var(--bg-tertiary)",
+                background: "rgba(255,255,255,0.03)",
                 border: "1px solid var(--border)",
                 color: "var(--text-primary)",
               }}
@@ -71,7 +75,7 @@ export default function AdminLoginPage() {
           </div>
           <div>
             <label
-              className="block font-mono text-xs mb-1.5"
+              className="block font-mono text-xs mb-1.5 uppercase tracking-wider"
               style={{ color: "var(--text-muted)" }}
             >
               Password
@@ -81,9 +85,10 @@ export default function AdminLoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="w-full px-4 py-2.5 rounded-lg text-sm outline-none transition-colors"
+              placeholder="••••••••"
+              className="w-full px-4 py-3 rounded-xl text-sm outline-none transition-all duration-300"
               style={{
-                background: "var(--bg-tertiary)",
+                background: "rgba(255,255,255,0.03)",
                 border: "1px solid var(--border)",
                 color: "var(--text-primary)",
               }}
@@ -93,22 +98,36 @@ export default function AdminLoginPage() {
           </div>
 
           {error && (
-            <p className="text-sm font-mono" style={{ color: "#f87171" }}>
-              ✗ {error}
-            </p>
+            <div className="flex items-center gap-2 p-3 rounded-xl text-sm font-mono" style={{
+              background: "rgba(239, 68, 68, 0.08)",
+              border: "1px solid rgba(239, 68, 68, 0.2)",
+              color: "#f87171",
+            }}>
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" strokeWidth="2" fill="none"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+              {error}
+            </div>
           )}
 
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-2.5 rounded-lg font-mono text-sm font-semibold transition-opacity"
+            className="w-full py-3 rounded-xl font-mono text-sm font-semibold transition-all duration-300 flex items-center justify-center gap-2"
             style={{
-              background: "var(--accent-green)",
-              color: "#000",
-              opacity: loading ? 0.6 : 1,
+              background: loading
+                ? "rgba(255,255,255,0.05)"
+                : "linear-gradient(135deg, var(--accent-green), #059669)",
+              color: loading ? "var(--text-muted)" : "#030712",
+              boxShadow: loading ? "none" : "0 0 20px rgba(16, 185, 129, 0.3)",
             }}
           >
-            {loading ? "Authenticating..." : "Sign In →"}
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-slate-500 border-t-transparent rounded-full animate-spin" />
+                Authenticating...
+              </>
+            ) : (
+              "Sign In →"
+            )}
           </button>
         </form>
       </div>
