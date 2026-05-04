@@ -52,12 +52,12 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative py-32 px-6 lg:px-8 overflow-hidden">
+    <section id="contact" className="relative py-16 md:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-t from-emerald-500/[0.03] to-transparent pointer-events-none" />
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] rounded-full bg-emerald-500/[0.05] blur-[120px] pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,19 +70,19 @@ export default function ContactSection() {
             Let&apos;s build something{" "}
             <span className="gradient-text">together</span>
           </h2>
-          <p className="text-slate-400 mt-4 max-w-xl mx-auto text-lg">
+          <p className="text-slate-400 mt-4 max-w-xl mx-auto text-base md:text-lg">
             Have a project in mind or just want to say hi?
             I&apos;m always open to new opportunities and connections.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 md:gap-8 lg:gap-16">
           {/* Left — Info */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 space-y-8"
+            className="lg:col-span-2 space-y-4 md:space-y-6 lg:space-y-8"
           >
             {/* Email card */}
             <a
@@ -152,7 +152,7 @@ export default function ContactSection() {
             transition={{ delay: 0.1 }}
             className="lg:col-span-3"
           >
-            <div className="card p-8 lg:p-10">
+            <div className="card p-6 md:p-8 lg:p-10"> 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>

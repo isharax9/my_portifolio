@@ -25,13 +25,13 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       : projects.filter((p) => p.tags.includes(activeTag));
 
   return (
-    <section id="projects" className="relative py-32 px-6 lg:px-8 overflow-hidden">
+    <section id="projects" className="relative py-16 md:py-32 overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-0 right-[-10%] w-[500px] h-[500px] rounded-full bg-cyan-500/[0.04] blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-[-10%] w-[400px] h-[400px] rounded-full bg-emerald-500/[0.04] blur-[120px] pointer-events-none" />
       <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
           <h2 className="section-title mt-4">
             Things I&apos;ve <span className="gradient-text">Built</span>
           </h2>
-          <p className="text-slate-400 mt-4 max-w-lg mx-auto">
+          <p className="text-slate-400 mt-4 max-w-lg mx-auto text-sm md:text-base">
             A showcase of my work across full-stack, DevOps, and cloud
           </p>
         </motion.div>
@@ -98,7 +98,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                   >
                     {/* Cover */}
                     {project.coverUrl ? (
-                      <div className="relative h-52 overflow-hidden">
+                      <div className="relative h-40 md:h-52 overflow-hidden\">
                         <Image
                           src={project.coverUrl}
                           alt={project.title}

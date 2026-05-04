@@ -38,7 +38,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
   }, {});
 
   return (
-    <section id="skills" className="relative py-32">
+    <section id="skills" className="relative py-16 md:py-32">
       {/* Background - wrapped in overflow-hidden so decorative elements don't bleed */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/[0.02] to-transparent" />
@@ -57,7 +57,7 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
           <h2 className="section-title mt-4">
             My <span className="gradient-text">Tech Stack</span>
           </h2>
-          <p className="text-slate-400 mt-4 max-w-xl mx-auto">
+          <p className="text-slate-400 mt-4 max-w-xl mx-auto text-sm md:text-base">
             Technologies I use to build scalable, reliable systems
           </p>
         </motion.div>

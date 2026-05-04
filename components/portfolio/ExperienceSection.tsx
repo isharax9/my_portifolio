@@ -35,8 +35,7 @@ function ExperienceItem({ exp, index, isLast }: { exp: Experience; index: number
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ delay: index * 0.1, duration: 0.5 }}
-      className="relative flex gap-6 lg:gap-10"
-    >
+      className="relative flex gap-4 md:gap-6 lg:gap-10">
       {/* Timeline column */}
       <div className="flex flex-col items-center shrink-0">
         {/* Node */}
@@ -131,23 +130,23 @@ function ExperienceItem({ exp, index, isLast }: { exp: Experience; index: number
 
 export default function ExperienceSection({ experience }: { experience: Experience[] }) {
   return (
-    <section id="experience" className="relative py-32 px-6 lg:px-8 overflow-hidden">
+    <section id="experience" className="relative py-16 md:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-violet-500/[0.015] to-transparent pointer-events-none" />
 
-      <div className="relative z-10 max-w-4xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 lg:px-8 space-y-20">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12 md:mb-20"
         >
           <span className="section-label">Experience</span>
           <h2 className="section-title mt-4">
             Work <span className="gradient-text-purple">History</span>
           </h2>
-          <p className="text-slate-400 mt-4 max-w-lg mx-auto">
+          <p className="text-slate-400 mt-4 max-w-lg mx-auto text-sm md:text-base">
             My professional journey from freelancing to enterprise cloud engineering
           </p>
         </motion.div>

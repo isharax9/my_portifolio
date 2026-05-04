@@ -27,11 +27,11 @@ export default function CertificationsSection({
   certifications: Certification[];
 }) {
   return (
-    <section id="certifications" className="relative py-32 px-6 lg:px-8 overflow-hidden">
+    <section id="certifications" className="relative py-16 md:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-amber-500/[0.015] to-transparent pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -43,7 +43,7 @@ export default function CertificationsSection({
           <h2 className="section-title mt-4">
             <span className="gradient-text">Credentials</span> & Badges
           </h2>
-          <p className="text-slate-400 mt-4 max-w-lg mx-auto">
+          <p className="text-slate-400 mt-4 max-w-lg mx-auto text-sm md:text-base">
             Professional certifications and learning milestones
           </p>
         </motion.div>

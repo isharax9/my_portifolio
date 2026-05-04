@@ -19,9 +19,9 @@ const techHighlights = ["AWS", "Docker", "Node.js", "Next.js", "PostgreSQL", "Je
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-32">
+    <section id="about" className="relative py-16 md:py-32">
       {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-emerald-500/[0.03] blur-[150px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[800px] h-[400px] md:h-[600px] rounded-full bg-emerald-500/[0.03] blur-[100px] md:blur-[150px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section header — centered */}
@@ -35,13 +35,13 @@ export default function AboutSection() {
           <h2 className="section-title mt-4">
             Get to know <span className="gradient-text">me</span>
           </h2>
-          <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-lg">
+          <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-base md:text-lg">
             A passionate engineer with a journey from graphic design to cloud infrastructure
           </p>
         </motion.div>
 
         {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12">
           {/* About text — 7 cols */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -49,19 +49,19 @@ export default function AboutSection() {
             viewport={{ once: true }}
             className="lg:col-span-7 space-y-6"
           >
-            <div className="card p-8 lg:p-10 space-y-5">
-              <p className="text-slate-300 leading-[1.9] text-[15px]">
+            <div className="card p-6 md:p-8 lg:p-10 space-y-5">
+              <p className="text-sm md:text-[15px] text-slate-300 leading-[1.9]">
                 I&apos;m <strong className="text-white font-semibold">Ishara Lakshitha</strong>, a
                 Software Engineer & DevOps specialist currently working at{" "}
                 <strong className="text-emerald-400">KingIT Solutions</strong> (UK, Remote).
                 I build and maintain scalable cloud infrastructure and distributed systems.
               </p>
-              <p className="text-slate-400 leading-[1.9] text-[15px]">
+              <p className="text-sm md:text-[15px] text-slate-400 leading-[1.9]">
                 My journey started with freelance graphic design on Fiverr, evolved through
                 junior software development, and accelerated with DevOps engineering — giving
                 me a unique full-stack perspective on building products end-to-end.
               </p>
-              <p className="text-slate-400 leading-[1.9] text-[15px]">
+              <p className="text-sm md:text-[15px] text-slate-400 leading-[1.9]">
                 I hold a BSc (Hons) in Computer Science from the University of Plymouth
                 (through NIBM Sri Lanka). I&apos;m passionate about automation, CI/CD,
                 cloud-native architectures, and writing clean, maintainable code.
@@ -85,7 +85,7 @@ export default function AboutSection() {
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={stat.label}
@@ -95,10 +95,10 @@ export default function AboutSection() {
                   transition={{ delay: 0.1 * i }}
                   className="card p-6 text-center group"
                 >
-                  <div className={`text-3xl font-bold font-mono bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
+                  <div className={`text-2xl sm:text-3xl font-bold font-mono bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
                     {stat.value}
                   </div>
-                  <div className="text-xs text-slate-500 mt-2">
+                  <div className="text-[10px] md:text-xs text-slate-500 mt-2">
                     {stat.label}
                   </div>
                 </motion.div>
@@ -125,9 +125,9 @@ export default function AboutSection() {
                 />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Ishara Lakshitha</h3>
-                <p className="text-sm text-emerald-400 font-mono">@isharax9</p>
-                <p className="text-xs text-slate-500 mt-1">Software Engineer & DevOps</p>
+                <h3 className="text-base md:text-lg font-semibold text-white">Ishara Lakshitha</h3>
+                <p className="text-xs md:text-sm text-emerald-400 font-mono">@isharax9</p>
+                <p className="text-[10px] md:text-xs text-slate-500 mt-1">Software Engineer & DevOps</p>
               </div>
             </div>
 
@@ -142,11 +142,11 @@ export default function AboutSection() {
                 className="card p-5 group"
               >
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-lg shrink-0">
+                  <div className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-lg shrink-0">
                     {fact.icon}
                   </div>
                   <div>
-                    <p className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-1">
+                    <p className="text-[11px] md:text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">
                       {fact.label}
                     </p>
                     <p className="text-sm font-medium text-white">{fact.value}</p>

@@ -57,14 +57,14 @@ export default function HeroSection() {
         <div className="absolute inset-0 grid-pattern opacity-50" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full py-32">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full py-20 md:py-32">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 lg:gap-20 items-center">
           {/* Left Content — 7 cols */}
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-            className="lg:col-span-7 space-y-8"
+            className="lg:col-span-7 space-y-6 md:space-y-8"
           >
             {/* Status badge */}
             <motion.div
@@ -80,7 +80,7 @@ export default function HeroSection() {
             </motion.div>
 
             <div>
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
                 <span className="text-white">Hi, I&apos;m</span>
                 <br />
                 <span className="gradient-text">Ishara</span>{" "}
@@ -89,14 +89,14 @@ export default function HeroSection() {
             </div>
 
             {/* Typewriter */}
-            <div className="h-10 flex items-center">
-              <span className="font-mono text-xl sm:text-2xl text-slate-400">
+            <div className="h-8 md:h-10 flex items-center">
+              <span className="font-mono text-lg sm:text-xl md:text-2xl text-slate-400">
                 {">"} {displayed}
                 <span className="text-emerald-400 animate-pulse ml-0.5">▌</span>
               </span>
             </div>
 
-            <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
+            <p className="text-base md:text-lg text-slate-400 max-w-xl leading-relaxed">
               Building scalable cloud systems and distributed architectures at{" "}
               <span className="text-emerald-400 font-medium">KingIT Solutions</span>.
               Passionate about DevOps, automation, and shipping clean code at scale.

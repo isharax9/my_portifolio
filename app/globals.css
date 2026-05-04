@@ -104,11 +104,17 @@ body {
 }
 
 .section-title {
-  font-size: 2.5rem;
+  font-size: 1.875rem;
   font-weight: 700;
   color: var(--text-primary);
   letter-spacing: -0.025em;
   line-height: 1.2;
+}
+
+@media (min-width: 640px) {
+  .section-title {
+    font-size: 2.25rem;
+  }
 }
 
 @media (min-width: 768px) {

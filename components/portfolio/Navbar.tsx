@@ -41,18 +41,18 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-16 md:h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="group flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-500 flex items-center justify-center font-mono text-xs font-bold text-[#030712] transition-transform duration-300 group-hover:scale-110">
             IL
           </div>
-          <span className="font-mono text-sm font-semibold text-white/90 hidden sm:block">
+          <span className="font-mono text-xs md:text-sm font-semibold text-white/90 hidden sm:block">
             ishara<span className="text-emerald-400">.dev</span>
           </span>
         </Link>
 
-        {/* Desktop nav */}
+        {/* Mobile nav note */}
         <ul className="hidden lg:flex items-center gap-1">
           {navLinks.map((link) => {
             const isActive = activeSection === link.href.slice(1);
@@ -60,7 +60,7 @@ export default function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className={`relative px-4 py-2 rounded-lg text-sm transition-all duration-300 flex items-center gap-2 ${
+                  className={`relative px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm transition-all duration-300 flex items-center gap-2 ${
                     isActive
                       ? "text-emerald-400"
                       : "text-slate-400 hover:text-white"
@@ -84,7 +84,7 @@ export default function Navbar() {
           <li className="ml-1">
             <Link
               href="/blog"
-              className="px-4 py-2 rounded-lg text-sm text-slate-400 hover:text-white transition-all duration-300"
+              className="px-3 md:px-4 py-2 rounded-lg text-xs md:text-sm text-slate-400 hover:text-white transition-all duration-300"
             >
               Blog
             </Link>
