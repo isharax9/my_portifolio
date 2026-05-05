@@ -1,182 +1,122 @@
 "use client";
 
 import { motion } from "framer-motion";
-import Image from "next/image";
 
-const stats = [
-  { value: "5+", label: "Years Experience", color: "from-emerald-500 to-cyan-500" },
-  { value: "20+", label: "Projects Built", color: "from-violet-500 to-pink-500" },
-  { value: "3", label: "Countries Worked", color: "from-amber-500 to-orange-500" },
+const milestones = [
+  {
+    title: "Started in creative freelancing",
+    copy: "Early graphic design work taught me how to think visually, communicate clearly, and design for real client outcomes.",
+  },
+  {
+    title: "Moved into software development",
+    copy: "That design-first mindset evolved into building full web products, APIs, and practical business tools.",
+  },
+  {
+    title: "Specialized in DevOps and cloud",
+    copy: "Today I focus on deployment pipelines, infrastructure reliability, and systems that scale without turning brittle.",
+  },
 ];
 
-const quickFacts = [
-  { icon: "📍", label: "Location", value: "United Kingdom (Remote)" },
-  { icon: "🎓", label: "Education", value: "BSc (Hons) Computer Science", sub: "University of Plymouth · NIBM Sri Lanka" },
-  { icon: "💼", label: "Current Role", value: "Software Engineer & DevOps", sub: "KingIT Solutions" },
+const factList = [
+  { label: "Current role", value: "Software Engineer & DevOps", note: "KingIT Solutions" },
+  { label: "Location", value: "Sri Lanka", note: "Working with remote teams" },
+  { label: "Education", value: "BSc (Hons) Computer Science", note: "University of Plymouth via NIBM" },
 ];
 
-const techHighlights = ["AWS", "Docker", "Node.js", "Next.js", "PostgreSQL", "Jenkins", "Linux", "React"];
+const stack = ["AWS", "Docker", "Kubernetes", "Next.js", "Node.js", "PostgreSQL", "Jenkins", "Linux"];
 
 export default function AboutSection() {
   return (
-    <section id="about" className="relative py-16 md:py-32">
-      {/* Ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] md:w-[800px] h-[400px] md:h-[600px] rounded-full bg-emerald-500/[0.03] blur-[100px] md:blur-[150px] pointer-events-none" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section header — centered */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-20"
-        >
-          <span className="section-label">About</span>
-          <h2 className="section-title mt-4">
-            Get to know <span className="gradient-text">me</span>
-          </h2>
-          <p className="text-slate-400 mt-4 max-w-2xl mx-auto text-base md:text-lg">
-            A passionate engineer with a journey from graphic design to cloud infrastructure
+    <section id="about" className="relative">
+      <div className="section-shell">
+        <div className="section-header">
+          <div>
+            <span className="section-label">About</span>
+            <h2 className="section-title mt-4">
+              From design roots to <span className="gradient-text">production-grade engineering</span>
+            </h2>
+          </div>
+          <p className="section-copy">
+            My work sits at the intersection of product thinking, software engineering,
+            and cloud operations. I like building systems that feel polished to users and
+            dependable to the teams maintaining them.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Main grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 md:gap-8 lg:gap-12">
-          {/* About text — 7 cols */}
+        <div className="grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(22rem,0.9fr)]">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="lg:col-span-7 space-y-6"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            className="surface-panel-strong p-6 sm:p-8"
           >
-            <div className="card p-6 md:p-8 lg:p-10 space-y-5">
-              <p className="text-sm md:text-[15px] text-slate-300 leading-[1.9]">
-                I&apos;m <strong className="text-white font-semibold">Ishara Lakshitha</strong>, a
-                Software Engineer & DevOps specialist currently working at{" "}
-                <strong className="text-emerald-400">KingIT Solutions</strong> (UK, Remote).
-                I build and maintain scalable cloud infrastructure and distributed systems.
+            <p className="text-lg leading-8 text-slate-100">
+              I&apos;m Ishara Lakshitha, a software engineer and DevOps specialist building
+              modern web products and the infrastructure that keeps them fast, observable,
+              and easy to evolve.
+            </p>
+            <div className="mt-5 space-y-4 text-sm leading-7 text-slate-300 sm:text-base">
+              <p>
+                My path has been unusually cross-functional: I started with freelance design,
+                moved into software delivery, and then leaned deeply into cloud operations and
+                release engineering. That mix helps me think beyond isolated features.
               </p>
-              <p className="text-sm md:text-[15px] text-slate-400 leading-[1.9]">
-                My journey started with freelance graphic design on Fiverr, evolved through
-                junior software development, and accelerated with DevOps engineering — giving
-                me a unique full-stack perspective on building products end-to-end.
+              <p>
+                I care about developer experience, maintainable code, deployment confidence,
+                and interfaces that make technical work feel simpler instead of more complex.
               </p>
-              <p className="text-sm md:text-[15px] text-slate-400 leading-[1.9]">
-                I hold a BSc (Hons) in Computer Science from the University of Plymouth
-                (through NIBM Sri Lanka). I&apos;m passionate about automation, CI/CD,
-                cloud-native architectures, and writing clean, maintainable code.
-              </p>
-
-              {/* Tech pills */}
-              <div className="flex flex-wrap gap-2 pt-4 border-t border-white/[0.06]">
-                {techHighlights.map((tech, i) => (
-                  <motion.span
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.05 }}
-                    className="font-mono text-xs px-3 py-1.5 rounded-lg bg-emerald-500/[0.08] border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/[0.15] transition-colors duration-300"
-                  >
-                    {tech}
-                  </motion.span>
-                ))}
-              </div>
             </div>
 
-            {/* Stats row */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 md:gap-4">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 * i }}
-                  className="card p-6 text-center group"
-                >
-                  <div className={`text-2xl sm:text-3xl font-bold font-mono bg-gradient-to-r ${stat.color} bg-clip-text text-transparent`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-[10px] md:text-xs text-slate-500 mt-2">
-                    {stat.label}
-                  </div>
-                </motion.div>
+            <div className="mt-7 flex flex-wrap gap-2.5">
+              {stack.map((item) => (
+                <span key={item} className="chip">
+                  {item}
+                </span>
               ))}
             </div>
           </motion.div>
 
-          {/* Info cards — 5 cols */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="lg:col-span-5 space-y-4"
-          >
-            {/* Profile image card */}
-            <div className="card p-6 flex items-center gap-5">
-              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-emerald-500/30 shrink-0">
-                <Image
-                  src="https://github.com/isharax9.png"
-                  alt="Ishara Lakshitha"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div>
-                <h3 className="text-base md:text-lg font-semibold text-white">Ishara Lakshitha</h3>
-                <p className="text-xs md:text-sm text-emerald-400 font-mono">@isharax9</p>
-                <p className="text-[10px] md:text-xs text-slate-500 mt-1">Software Engineer & DevOps</p>
-              </div>
-            </div>
-
-            {/* Quick facts */}
-            {quickFacts.map((fact, i) => (
-              <motion.div
-                key={fact.label}
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.15 * i }}
-                className="card p-5 group"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-8 md:w-10 h-8 md:h-10 rounded-xl bg-white/[0.03] border border-white/[0.06] flex items-center justify-center text-lg shrink-0">
-                    {fact.icon}
-                  </div>
-                  <div>
-                    <p className="text-[11px] md:text-xs font-mono text-slate-500 uppercase tracking-wider mb-1">
-                      {fact.label}
-                    </p>
-                    <p className="text-sm font-medium text-white">{fact.value}</p>
-                    {fact.sub && (
-                      <p className="text-xs text-slate-500 mt-0.5">{fact.sub}</p>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-
-            {/* Email CTA */}
-            <a
-              href="mailto:isharax9@gmail.com"
-              className="card p-5 flex items-center gap-4 group hover:border-emerald-500/30"
+          <div className="grid gap-4">
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              className="surface-panel p-5 sm:p-6"
             >
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/[0.08] border border-emerald-500/20 flex items-center justify-center text-emerald-400 shrink-0">
-                <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2" fill="none">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
+              <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-200/70">
+                Career arc
+              </p>
+              <div className="mt-5 space-y-4">
+                {milestones.map((item) => (
+                  <div
+                    key={item.title}
+                    className="rounded-[1.15rem] border border-white/7 bg-white/4 px-4 py-4"
+                  >
+                    <p className="text-sm font-semibold text-white sm:text-base">{item.title}</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-300">{item.copy}</p>
+                  </div>
+                ))}
               </div>
-              <div>
-                <p className="text-[11px] font-mono text-slate-500 uppercase tracking-wider mb-1">Email</p>
-                <p className="text-sm text-emerald-400 group-hover:text-emerald-300 transition-colors">
-                  isharax9@gmail.com
-                </p>
-              </div>
-            </a>
-          </motion.div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1 }}
+              viewport={{ once: true, margin: "-80px" }}
+              className="grid gap-4 sm:grid-cols-3 lg:grid-cols-1"
+            >
+              {factList.map((fact) => (
+                <div key={fact.label} className="surface-panel p-5">
+                  <p className="font-mono text-[0.68rem] uppercase tracking-[0.28em] text-cyan-200/66">
+                    {fact.label}
+                  </p>
+                  <p className="mt-3 text-base font-semibold text-white">{fact.value}</p>
+                  <p className="mt-1 text-sm text-slate-300">{fact.note}</p>
+                </div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -9,7 +9,7 @@ export default function PortfolioLayout({
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="page-shell">{children}</main>
       <Footer />
     </>
   );

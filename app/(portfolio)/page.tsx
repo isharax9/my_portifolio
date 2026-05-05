@@ -6,8 +6,18 @@ import ExperienceSection from "@/components/portfolio/ExperienceSection";
 import ProjectsSection from "@/components/portfolio/ProjectsSection";
 import CertificationsSection from "@/components/portfolio/CertificationsSection";
 import ContactSection from "@/components/portfolio/ContactSection";
+import {
+  fallbackCertifications,
+  fallbackExperience,
+  fallbackProjects,
+  fallbackSkills,
+} from "@/lib/portfolio-content";
 
 export const dynamic = "force-dynamic";
+
+function normalizeDate(value: Date | string) {
+  return value instanceof Date ? value.toISOString() : value;
+}
 
 export default async function HomePage() {
   let skills: Awaited<ReturnType<typeof prisma.skill.findMany>> = [];
@@ -30,19 +40,21 @@ export default async function HomePage() {
     <>
       <HeroSection />
       <AboutSection />
-      <SkillsSection skills={skills.map(s => ({ ...s }))} />
+      <SkillsSection skills={(skills.length > 0 ? skills : fallbackSkills).map((s) => ({ ...s }))} />
       <ExperienceSection
-        experience={experience.map(e => ({
+        experience={(experience.length > 0 ? experience : fallbackExperience).map((e) => ({
           ...e,
-          startDate: e.startDate.toISOString(),
-          endDate: e.endDate ? e.endDate.toISOString() : null,
+          startDate: normalizeDate(e.startDate),
+          endDate: e.endDate ? normalizeDate(e.endDate) : null,
         }))}
       />
-      <ProjectsSection projects={projects.map(p => ({ ...p }))} />
+      <ProjectsSection
+        projects={(projects.length > 0 ? projects : fallbackProjects).map((p) => ({ ...p }))}
+      />
       <CertificationsSection
-        certifications={certifications.map(c => ({
+        certifications={(certifications.length > 0 ? certifications : fallbackCertifications).map((c) => ({
           ...c,
-          issuedDate: c.issuedDate.toISOString(),
+          issuedDate: normalizeDate(c.issuedDate),
         }))}
       />
       <ContactSection />

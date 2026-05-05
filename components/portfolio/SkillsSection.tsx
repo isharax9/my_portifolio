@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 
 interface Skill {
@@ -13,108 +13,113 @@ interface Skill {
   featured: boolean;
 }
 
-const CATEGORIES = [
-  { key: "All", icon: "✦" },
-  { key: "Languages", icon: "🖥️" },
-  { key: "Frameworks", icon: "⚙️" },
-  { key: "DevOps", icon: "🔄" },
-  { key: "Cloud", icon: "☁️" },
-  { key: "Databases", icon: "🗄️" },
-  { key: "Tools", icon: "🔧" },
-];
+const CATEGORY_ICONS: Record<string, string> = {
+  All: "✦",
+  Languages: "⌘",
+  Frameworks: "▣",
+  DevOps: "⟳",
+  Cloud: "☁",
+  Databases: "◫",
+  Tools: "⚒",
+};
 
 export default function SkillsSection({ skills }: { skills: Skill[] }) {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filtered =
-    activeCategory === "All"
-      ? skills
-      : skills.filter((s) => s.category === activeCategory);
+  const categories = useMemo(() => {
+    return ["All", ...Array.from(new Set(skills.map((skill) => skill.category)))];
+  }, [skills]);
 
-  const grouped = skills.reduce<Record<string, Skill[]>>((acc, skill) => {
-    if (!acc[skill.category]) acc[skill.category] = [];
-    acc[skill.category].push(skill);
-    return acc;
-  }, {});
+  const filteredSkills = useMemo(() => {
+    if (activeCategory === "All") {
+      return skills;
+    }
+    return skills.filter((skill) => skill.category === activeCategory);
+  }, [activeCategory, skills]);
+
+  const groupedSkills = useMemo(() => {
+    return skills.reduce<Record<string, Skill[]>>((acc, skill) => {
+      if (!acc[skill.category]) {
+        acc[skill.category] = [];
+      }
+      acc[skill.category].push(skill);
+      return acc;
+    }, {});
+  }, [skills]);
 
   return (
-    <section id="skills" className="relative py-16 md:py-32">
-      {/* Background - wrapped in overflow-hidden so decorative elements don't bleed */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-emerald-500/[0.02] to-transparent" />
-        <div className="absolute inset-0 grid-pattern opacity-30" />
-      </div>
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <span className="section-label">Skills</span>
-          <h2 className="section-title mt-4">
-            My <span className="gradient-text">Tech Stack</span>
-          </h2>
-          <p className="text-slate-400 mt-4 max-w-xl mx-auto text-sm md:text-base">
-            Technologies I use to build scalable, reliable systems
+    <section id="skills" className="relative">
+      <div className="section-shell">
+        <div className="section-header">
+          <div>
+            <span className="section-label">Skills</span>
+            <h2 className="section-title mt-4">
+              A toolkit shaped for <span className="gradient-text">shipping real systems</span>
+            </h2>
+          </div>
+          <p className="section-copy">
+            My strongest stack sits around modern JavaScript, cloud delivery, and the
+            operational tooling needed to keep products reliable once they leave the laptop.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Category tabs */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 mb-14"
-        >
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.key}
-              onClick={() => setActiveCategory(cat.key)}
-              className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 flex items-center gap-2 ${
-                activeCategory === cat.key
-                  ? "bg-emerald-500/[0.15] text-emerald-400 border border-emerald-500/30 shadow-[0_0_20px_rgba(16,185,129,0.15)]"
-                  : "bg-white/[0.03] text-slate-400 border border-white/[0.06] hover:bg-white/[0.06] hover:text-white"
-              }`}
-            >
-              <span className="text-sm">{cat.icon}</span>
-              {cat.key}
-            </button>
-          ))}
-        </motion.div>
+        <div className="mb-6 flex flex-wrap gap-2.5">
+          {categories.map((category) => {
+            const selected = activeCategory === category;
+            return (
+              <button
+                key={category}
+                type="button"
+                onClick={() => setActiveCategory(category)}
+                className={`rounded-full border px-4 py-2.5 text-sm transition-all ${
+                  selected
+                    ? "border-cyan-300/28 bg-cyan-300/10 text-white shadow-[0_12px_30px_rgba(86,194,255,0.14)]"
+                    : "border-white/8 bg-white/3 text-slate-300 hover:border-white/14 hover:text-white"
+                }`}
+              >
+                <span className="mr-2 font-mono text-xs text-cyan-200/70">
+                  {CATEGORY_ICONS[category] ?? "•"}
+                </span>
+                {category}
+              </button>
+            );
+          })}
+        </div>
 
-        {/* Skills grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.24 }}
           >
             {activeCategory === "All" ? (
-              <div className="space-y-12">
-                {Object.entries(grouped).map(([category, categorySkills]) => (
-                  <div key={category}>
-                    <h3 className="text-sm font-mono text-slate-500 mb-4 flex items-center gap-3">
-                      <span className="w-8 h-px bg-white/[0.08]" />
-                      {category}
-                      <span className="text-emerald-500/50 text-xs">({categorySkills.length})</span>
-                    </h3>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                      {categorySkills.map((skill, i) => (
-                        <SkillCard key={skill.id} skill={skill} index={i} />
+              <div className="grid gap-5">
+                {Object.entries(groupedSkills).map(([category, categorySkills]) => (
+                  <div key={category} className="surface-panel p-5 sm:p-6">
+                    <div className="mb-5 flex items-center justify-between gap-3">
+                      <div>
+                        <p className="font-mono text-xs uppercase tracking-[0.28em] text-cyan-200/70">
+                          {category}
+                        </p>
+                        <p className="mt-2 text-sm text-slate-300">
+                          {categorySkills.length} tools I use in this area
+                        </p>
+                      </div>
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                      {categorySkills.map((skill, index) => (
+                        <SkillCard key={skill.id} skill={skill} index={index} />
                       ))}
                     </div>
                   </div>
                 ))}
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                {filtered.map((skill, i) => (
-                  <SkillCard key={skill.id} skill={skill} index={i} />
+              <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+                {filteredSkills.map((skill, index) => (
+                  <SkillCard key={skill.id} skill={skill} index={index} />
                 ))}
               </div>
             )}
@@ -128,44 +133,57 @@ export default function SkillsSection({ skills }: { skills: Skill[] }) {
 function SkillCard({ skill, index }: { skill: Skill; index: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.9 }}
-      whileInView={{ opacity: 1, scale: 1 }}
-      viewport={{ once: true }}
+      initial={{ opacity: 0, y: 14 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
       transition={{ delay: index * 0.03 }}
-      className={`group relative p-4 rounded-2xl border transition-all duration-300 cursor-default flex flex-col items-center gap-3 ${
+      className={`group rounded-[1.35rem] border p-4 transition-all ${
         skill.featured
-          ? "bg-emerald-500/[0.06] border-emerald-500/20 hover:border-emerald-500/40 hover:shadow-[0_0_30px_rgba(16,185,129,0.1)]"
-          : "bg-white/[0.02] border-white/[0.06] hover:bg-white/[0.05] hover:border-white/[0.12]"
+          ? "border-emerald-300/24 bg-emerald-300/8 shadow-[0_18px_40px_rgba(61,217,179,0.12)]"
+          : "border-white/8 bg-white/4"
       }`}
     >
-      {skill.featured && (
-        <div className="absolute -top-1.5 -right-1.5 w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
-      )}
-      <div className="w-10 h-10 relative flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-        <Image
-          src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.iconSlug}/${skill.iconSlug}-original.svg`}
-          alt={skill.name}
-          width={40}
-          height={40}
-          className="object-contain drop-shadow-lg"
-          onError={(e) => {
-            (e.target as HTMLImageElement).src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.iconSlug}/${skill.iconSlug}-plain.svg`;
-          }}
-        />
+      <div className="flex items-start justify-between gap-3">
+        <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-white/10 bg-[#0c2036]">
+          <Image
+            src={`https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.iconSlug}/${skill.iconSlug}-original.svg`}
+            alt={skill.name}
+            width={28}
+            height={28}
+            className="object-contain"
+            onError={(event) => {
+              (event.target as HTMLImageElement).src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${skill.iconSlug}/${skill.iconSlug}-plain.svg`;
+            }}
+          />
+        </div>
+        {skill.featured && (
+          <span className="rounded-full border border-emerald-300/20 bg-emerald-300/10 px-2 py-1 font-mono text-[0.64rem] uppercase tracking-[0.2em] text-emerald-100">
+            Core
+          </span>
+        )}
       </div>
-      <span className="text-xs text-center font-medium text-slate-300 group-hover:text-white transition-colors">
-        {skill.name}
-      </span>
-      <div className="w-full h-1 rounded-full bg-white/[0.06] overflow-hidden">
-        <div
-          className="h-full rounded-full transition-all duration-500"
-          style={{
-            width: `${(skill.level / 5) * 100}%`,
-            background: skill.featured
-              ? "linear-gradient(to right, #10b981, #06b6d4)"
-              : "linear-gradient(to right, #475569, #64748b)",
-          }}
-        />
+
+      <div className="mt-4">
+        <p className="text-sm font-semibold text-white sm:text-base">{skill.name}</p>
+        <p className="mt-1 text-xs text-slate-400">{skill.category}</p>
+      </div>
+
+      <div className="mt-4">
+        <div className="mb-2 flex items-center justify-between text-[0.7rem] font-mono uppercase tracking-[0.18em] text-slate-400">
+          <span>Confidence</span>
+          <span>{skill.level}/5</span>
+        </div>
+        <div className="h-2 rounded-full bg-white/8">
+          <div
+            className="h-full rounded-full"
+            style={{
+              width: `${(skill.level / 5) * 100}%`,
+              background: skill.featured
+                ? "linear-gradient(90deg, #8af2d7 0%, #3dd9b3 50%, #56c2ff 100%)"
+                : "linear-gradient(90deg, rgba(191,208,228,0.55), rgba(86,194,255,0.75))",
+            }}
+          />
+        </div>
       </div>
     </motion.div>
   );
